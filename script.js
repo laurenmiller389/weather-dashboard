@@ -40,3 +40,25 @@ function getWeatherApi () {
         })
     })
 }
+
+function makeButton () {
+    var city = document.querySelector("#city-search").value;
+
+    localStorage.setItem(city, city)
+    for(i = 0; i < localStorage.length; i++) {
+        var lastSearchButton = document.createElement("button")
+        lastSearchButton.textContent = localStorage.getItem(localStorage.key(i))
+        document.getElementById("last-search").appendChild(lastSearchButton)
+        lastSearchButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            searchCityElement.value = this.textContent;
+            getWeatherApi();
+        })
+    }
+}
+
+searchButtonElement.addEventListener("click", function(event) {
+    event.preventDefault();
+    getWeatherApi();
+    makeButton();
+})
