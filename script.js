@@ -26,5 +26,17 @@ function getWeatherApi () {
         fetch(reqURL).then(function (res) {
             return res.json();
         })
+        .then(function (data) {
+            var dayIndexElement = 1
+            for (i = 5; i < 39; i+=8) {
+                document.getElementById("day-"+ dayIndexElement + "-date").textContent = data.list[i].dt_txt.slice(0, 10);
+                document.getElementById("day-"+ dayIndexElement + "-icon").src = `http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}.png`
+                document.getElementById("day-"+ dayIndexElement + "-temp").textContent = "Temp: " + data.list[i].main.temp + " F\xB0";
+                document.getElementById("day-"+ dayIndexElement + "-wind").textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                document.getElementById("day-"+ dayIndexElement + "-wind").textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                document.getElementById("day-"+ dayIndexElement + "-humid").textContent = "Humidity: " + data.list[i].main.humidity + "%";
+                dayIndexElement++;
+            }
+        })
     })
 }
